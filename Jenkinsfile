@@ -44,6 +44,7 @@ pipeline{
             command:
             - /busybox/cat
             tty: true
+            """
     }
   }
   stages{
