@@ -52,7 +52,7 @@ pipeline{
           steps{
             container('kaniko'){
               withCredentials([usernamePassword(credentialsId: 'docker-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-              sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin your-registry"
+              sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin gowtham014"
               sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --destination=gowtham014/docker-dev:1.0 '
             }
         }
