@@ -5,6 +5,8 @@ pipeline{
 apiversion: v1
 kind: Pod
 metadata:
+  labels:
+    name: kaniko
 spec:
 containers:
 - name: kaniko
