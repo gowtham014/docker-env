@@ -30,17 +30,20 @@ pipeline{
   agent{
     kubernetes{
       yaml"""
-      piVersion: v1
+      apiVersion: v1
       kind: Pod
+      metadata:
+        labels:
+          build-spec: kaniko
+        namespace: jenkins
       spec:
         containers:
-        - name: kaniko
-          image: gcr.io/kaniko-project/executor:latest
-          imagePullPolicy: Always
-          command:
+          - name: kaniko
+            image: gcr.io/kaniko-project/executor:debug
+            imagePullPolicy: Always
+            command:
             - /busybox/cat
-          tty: true 
-          """
+            tty: true
     }
   }
   stages{
