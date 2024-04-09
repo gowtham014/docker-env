@@ -2,7 +2,9 @@ pipeline{
     agent{
         kubernetes{
             yaml """
+apiversion: v1
 kind: Pod
+metadata:
 spec:
 containers:
 - name: kaniko
@@ -31,7 +33,7 @@ volumes:
         stage('build with kaniko'){
             steps {
                 container('kaniko'){
-                    sh ' /kaniko/executor --context `pwd` --destination gowtham014/docker-env:1.0'
+                    sh ' /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --destination=gowtham014/docker-env:1.0'
                 }
             }
         }
