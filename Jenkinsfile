@@ -6,7 +6,7 @@ apiversion: v1
 kind: Pod
 metadata:
   labels:
-    name: kaniko
+    build-spec: kaniko
 spec:
 containers:
 - name: kaniko
