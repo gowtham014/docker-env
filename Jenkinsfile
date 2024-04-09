@@ -45,9 +45,11 @@ pipeline{
   }
   stages{
         stage('build with kaniko'){
+          steps{
             container('kaniko'){
                 sh '/kaniko/executor -f `pwd`/Dockerfile -c `pwd` '
             }
         }
     }
+  }
 }
