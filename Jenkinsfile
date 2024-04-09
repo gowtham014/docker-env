@@ -60,6 +60,8 @@
 //         }
 //     }
 //   }
+ // - --context=.
+    // # Additional Kaniko options can be specified here
 // }
 
 pipeline {
@@ -80,8 +82,6 @@ spec:
     args:
     - --dockerfile=Dockerfile
     - --destination=gowtham014/docker-env:latest
-    // - --context=.
-    // # Additional Kaniko options can be specified here
     securityContext:
       privileged: false
 """
