@@ -26,7 +26,7 @@ volumes:
     - secret:
         name: docker-cred
         items:
-          - key: .dockerconfigjson
+          - key: dockerconfigjson
             path: config.json
 """
         }
