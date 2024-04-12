@@ -20,7 +20,7 @@ spec:
     - name: kaniko-secret
       mountPath: /kaniko/.docker
 volumes:
-- name: jenkins-docker-cfg
+- name: kaniko-secret
   projected:
     sources:
     - secret:
@@ -38,7 +38,7 @@ volumes:
           }
             steps {
                 container('kaniko'){
-                  // sh 'cp $KANIKO_DOCKER_CREDS /kaniko/.docker/config.json'
+                  sh 'cp $KANIKO_DOCKER_CREDS /kaniko/.docker/config.json'
                   sh ' /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --destination=gowtham014/docker-env:1.0'
                 }
             }
