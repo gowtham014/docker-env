@@ -38,7 +38,8 @@ spec:
           }
             steps {
                 container('kaniko'){
-                  sh 'cp $KANIKO_DOCKER_CREDS /kaniko/.docker/config.json'
+                  echo "credentials are ${$KANIKO_DOCKER_CREDS}"
+                  sh 'cp ${KANIKO_DOCKER_CREDS} /kaniko/.docker/config.json'
                   sh ' /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --destination=gowtham014/docker-env:1.0'
                 }
             }
