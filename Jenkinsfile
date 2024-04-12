@@ -32,9 +32,13 @@ volumes:
     }
     stages{
         stage('build with kaniko'){
+          environment{
+            KANIKO_DOCKER_CREDS = credentials('docker-credentials')
+          }
             steps {
                 container('kaniko'){
-                    sh ' /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --destination=gowtham014/docker-env:1.0'
+                  sh 'cp $KANIKO_DOCKER_CREDS /kaniko/.docker/config.json'
+                  sh ' /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --destination=gowtham014/docker-env:1.0'
                 }
             }
         }
