@@ -37,11 +37,13 @@ volumes:
           //  DOCKER_USERNAME = credentials('docker-credentials').username
           //  DOCKER_PASSWORD = credentials('docker-credentials').password
             KANIKO_DOCKER_CREDS=credentials('docker-credentials')
+            DOCKER_CONFIG = '/kaniko/.docker'
           }
             steps {
                 container('kaniko'){
                   //  sh "echo '{\"auths\":{\"docker.io\":{\"username\":\"$DOCKER_USERNAME\",\"password\":\"$DOCKER_PASSWORD\",\"email\":\"\"}}}' > /kaniko/.docker/config.json"
-                  sh 'cp $KANIKO_DOCKER_CREDS /kaniko/.docker/config.json'
+                  sh "mkdir -p $DOCKER_CONFIG && touch $DOCKER_CONFIG/config.json"
+                  sh 'cp $KANIKO_DOCKER_CREDS $DOCKER_CONFIG/config.json'
                   sh "/kaniko/executor -f `pwd`/Dockerfile -c `pwd` --destination=gowtham014/docker-env:1.0"
                     }
                 }
