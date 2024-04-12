@@ -2,20 +2,19 @@ pipeline{
     agent{
         kubernetes{
             yaml """
-apiversion: v1
+apiVersion: v1
 kind: Pod
 metadata:
   labels:
     build-spec: kaniko
 spec:
-containers:
-- name: kaniko
-  image: gcr.io/kaniko-project/executor:debug
-  imagePullPolicy: Always
-  command:
-    - sleep
-  args:
-    - 9999999
+  containers:
+    - name: kaniko
+      image: gcr.io/kaniko-project/executor:debug
+      imagePullPolicy: Always
+      command:
+      - /busybox/cat
+      tty: true
   volumeMounts:
     - name: kaniko-secret
       mountPath: /kaniko/.docker
