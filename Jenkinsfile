@@ -16,30 +16,29 @@ spec:
       command:
       - /busybox/cat
       tty: true
-//   volumeMounts:
-//     - name: kaniko-secret
-//       mountPath: /kaniko/.docker
-// volumes:
-// - name: jenkins-docker-cfg
-//   projected:
-//     sources:
-//     - secret:
-//         name: docker-cred
-//         items:
-//           - key: .dockerconfigjson
-//             path: config.json
+  volumeMounts:
+    - name: kaniko-secret
+      mountPath: /kaniko/.docker
+volumes:
+- name: jenkins-docker-cfg
+  projected:
+    sources:
+    - secret:
+        name: docker-cred
+        items:
+          - key: .dockerconfigjson
+            path: config.json
 """
         }
     }
     stages{
         stage('build with kaniko'){
           environment{
-            KANIKO_DOCKER_CREDS = credentials('docker-credentials')
+            KANIKO_DOCKER_CREDS=credentials('docker-credentials')
           }
             steps {
                 container('kaniko'){
-                  echo "credentials are ${$KANIKO_DOCKER_CREDS}"
-                  sh 'cp ${KANIKO_DOCKER_CREDS} /kaniko/.docker/config.json'
+                  sh 'cp $KANIKO_DOCKER_CREDS /kaniko/.docker/config.json'
                   sh ' /kaniko/executor -f `pwd`/Dockerfile -c `pwd` --destination=gowtham014/docker-env:1.0'
                 }
             }
